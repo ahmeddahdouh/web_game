@@ -1,0 +1,78 @@
+# Python
+*.pyc
+*.pyo
+__pycache__/
+*.pyd
+
+# Virtual Environment
+.env
+.venv/
+env/
+venv/
+
+# FastAPI Environment Variables
+*.env
+.env.*
+
+# Logs
+*.log
+logs/
+
+# Dependency Files
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Cache
+.cache/
+*.egg-info/
+.eggs/
+*.egg
+
+# Migrations
+alembic/versions/*.pyc
+alembic/versions/__pycache__/
+alembic/versions/*.py
+
+# Static files (optional, if you use a static directory)
+static/
+
+# Media files (optional, if you have a media directory)
+media/
+
+# IDEs
+.vscode/
+.idea/
+
+# Pytest Cache
+.pytest_cache/
+.cache/
+
+# Coverage Reports
+htmlcov/
+.coverage
+.coverage.*
+
+# Build/Dist
+build/
+dist/
+*.egg-info/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# Docker
+docker-compose.override.yml
+docker-compose.local.yml
+*.env.docker
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python Bytecode
+*.pyo
+*.pyd
+
+# Poetry
+poetry.lock

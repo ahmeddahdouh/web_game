@@ -1,0 +1,34 @@
+from typing import Annotated
+
+from src.app.endpoints.objet_endpoint import object_router
+from src.app.services.user_service import UserService
+from src.config.db.database import create_db_and_tables, db_dependency
+from fastapi import FastAPI, Depends
+from fastapi.security import  OAuth2PasswordRequestForm
+
+from src.app.endpoints.compte_endpoints import compte_router
+from src.app.endpoints.user_endpoint import user_router
+from src.app.endpoints.category_endpoint import category_router
+app = FastAPI()
+app.include_router(compte_router)
+app.include_router(user_router)
+app.include_router(category_router)
+app.include_router(object_router)
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+@app.post('/token')
+async def get_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()],db:db_dependency):
+    return UserService.get_token(db,form_data.username, form_data.password)
+
+@app.get("/hello/{name}")
+async def say_hello(name: str):
+    return {"message": f"Hello {name}"}
+
+
+if __name__ == "__main__":
+    create_db_and_tables()
+    print("table created seccessfully")
