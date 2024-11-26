@@ -28,11 +28,6 @@ pip-delete-this-directory.txt
 .eggs/
 *.egg
 
-# Migrations
-alembic/versions/*.pyc
-alembic/versions/__pycache__/
-alembic/versions/*.py
-
 # Static files (optional, if you use a static directory)
 static/
 
