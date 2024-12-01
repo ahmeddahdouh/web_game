@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="static/assets/style.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form id="login-form" enctype="multipart/form-data">
+    <h1>Connexion</h1>
+    <label for="username">Username :</label>
+    <input type="text" name="username" id="username" placeholder="Enter Username" required/>
+
+
+        <label for="password">Password :</label>
+        <input type="password" name="password" id="password" placeholder="Enter Password" required/>
+
+
+    <div style="text-align: center;">
+        <input class="button-login" type="submit" value="Login"/>
+        <br>
+        <br>
+        <a href="register.html"> Creer un compte </a>
+    </div>
+
+</form>
+<script src="login.js" defer></script>
+</body>
+</html>

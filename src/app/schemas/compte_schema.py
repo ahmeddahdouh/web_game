@@ -1,5 +1,6 @@
 from typing import Optional
 
+from fastapi import UploadFile
 from pydantic import BaseModel, Field
 
 
@@ -9,9 +10,4 @@ class CompteBase(BaseModel):
     addresse: str = Field(..., max_length=100)
     score: int
     niveau: int
-    avatar: Optional[str]
-
-
-
-
-
+    avatar: str

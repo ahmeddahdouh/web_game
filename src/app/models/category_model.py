@@ -11,5 +11,3 @@ class Category(SQLModel, table=True):
 
     # Liste d'objets liés à cette catégorie
     objets: List["Objet"] = Relationship(back_populates="category")
-
-

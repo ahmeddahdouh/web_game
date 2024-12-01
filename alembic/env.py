@@ -31,7 +31,7 @@ db_name = os.getenv("DB_NAME")
 sqlalchemy_url = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 
 # Définir l'URL de la base de données pour Alembic
-config.set_main_option('sqlalchemy.url', sqlalchemy_url)
+config.set_main_option("sqlalchemy.url", sqlalchemy_url)
 
 
 # Interpret the config file for Python logging.
@@ -89,9 +89,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

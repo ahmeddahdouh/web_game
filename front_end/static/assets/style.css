@@ -1,0 +1,308 @@
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f3f4f6;
+    color: #333;
+}
+
+/* Conteneur de formulaire */
+form {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+
+}
+
+/* Titre */
+h1 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Champs de formulaire */
+label {
+    font-size: 0.9rem;
+    color: black;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+
+}
+
+/* Bouton de soumission */
+button {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Ajustements pour une meilleure apparence */
+input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0px 0px 5px rgba(76, 175, 80, 0.5);
+}
+
+.error_message {
+    color: red;
+    display: none;
+    text-align: center;
+
+}
+
+/* Styles de base pour la page */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f7fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.header h5 {
+    font-size: 16px;
+    color: #666;
+}
+
+.tasks-container {
+    margin-top: 20px;
+}
+
+.tasks-container h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    padding: 15px;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.card h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card:active {
+    transform: translateY(2px);
+}
+
+
+.container {
+    width: 60%;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #e6e6e6;
+    padding-bottom: 20px;
+}
+
+.profile-header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #333;
+}
+
+.profile-header p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #777;
+}
+
+.profile-details {
+    margin-top: 20px;
+}
+
+.profile-details p {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.profile-details span {
+    font-weight: bold;
+}
+
+.profile-footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 1rem;
+    color: #666;
+}
+
+.user-card {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+        .user-card p {
+            text-align: left;
+        }
+        .user-card img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        .user-card h2 {
+            margin: 10px 0 5px;
+            font-size: 1.5em;
+            color: #333;
+        }
+        .user-card p {
+            margin: 0;
+            color: #777;
+            font-size: 0.9em;
+        }
+        .user-card .actions {
+            margin-top: 15px;
+        }
+        .user-card button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+        .user-card button:hover {
+            background-color: #45a049;
+        }
+
+.button-login {
+    margin: auto;
+    padding-inline: 20px;
+    border-radius: 6px;
+    padding-block: 10px;
+    width: 100%;
+    background-color: #4caf50;
+    color: white;
+    font-size: medium;
+    font-weight: 700;
+    border: #adadad solid 1px;
+}
+.button-login:hover {
+   background-color: rgba(76, 175, 80, 0.91);
+}
+
+.file-upload {
+    margin-block: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.file-label {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.file-label:hover {
+    background-color: #0056b3;
+}
+
+.file-input {
+    display: none; /* Cache l'input natif */
+}
+
+.file-name {
+    font-size: 14px;
+    color: #555;
+}
+

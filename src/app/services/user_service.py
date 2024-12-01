@@ -4,9 +4,10 @@ from src.app.repositories.user_repository import UserRepo
 class UserService:
     def __init__(self):
         pass
+
     @classmethod
-    def create_user(self,db,user):
-        return UserRepo.create_user(db,user)
+    def create_user(self, db, user):
+        return UserRepo.create_user(db, user)
 
     @classmethod
     def read_users(self, db):

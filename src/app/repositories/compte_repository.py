@@ -13,33 +13,28 @@ class CompteRepository:
         pass
 
     @classmethod
-    def create_compte(self,db:Session,compte:CompteBase):
-        compte_db = Compte(nom=compte.nom,
-        prenom = compte.prenom,
-        addresse =compte.addresse,
-        score = compte.score,
-        niveau=compte.niveau,
-        avatar=compte.avatar)
+    def create_compte(self, compte: CompteBase, db: Session):
+        compte_db = Compte(
+            nom=compte.nom,
+            prenom=compte.prenom,
+            addresse=compte.addresse,
+            score=compte.score,
+            niveau=compte.niveau,
+            avatar=compte.avatar,
+        )
         db.add(compte_db)
         db.commit()
         db.refresh(compte_db)
         return compte_db
 
     @classmethod
-    def get_all_comptes(self,db : db_dependency):
+    def get_all_comptes(self, db: db_dependency):
         return db.query(Compte).all()
 
     @classmethod
-    def get_compte_id(self,db,compte_id):
+    def get_compte_id(self, db, compte_id):
         db_compte = db.query(Compte).filter_by(id_compte=compte_id).first()
         if not db_compte:
-            raise HTTPException(
-                status_code=404,
-                detail="Element not found"
-            )
+            raise HTTPException(status_code=404, detail="Element not found")
         else:
             return db_compte
-
-
-
-
