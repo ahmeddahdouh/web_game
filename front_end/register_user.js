@@ -1,96 +1,53 @@
-document.addEventListener("DOMContentLoaded", initializeForm);
+const urlParams = new URLSearchParams(window.location.search);
+const compte_id = urlParams.get('id');
 
-// Initialisation des événements après le chargement du DOM
-function initializeForm() {
-    const registerForm = document.getElementById("register-form");
+document.getElementById("register-form").addEventListener("submit",
+    async (event) => {
+        event.preventDefault();
+        const user_login = document.getElementById("user_login").value;
+        const password = document.getElementById("password").value;
+        const now = new Date().toISOString();
 
-    if (!registerForm) {
-        console.error("Formulaire d'inscription introuvable dans le DOM.");
-        return;
-    }
+        // Construire l'objet JSON
+        const data = {
+            user_login,
+            password,
+            user_created_at: now,
+            user_login_date: now,
+            user_role: "test",
+            compte_id,
+        };
 
-    registerForm.addEventListener("submit", handleFormSubmit);
-}
+        try {
+            const response = await fetch("http://127.0.0.1:8090/users/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
 
-// Fonction pour gérer la soumission du formulaire
-async function handleFormSubmit(event) {
-    event.preventDefault();
+            if (response.ok) {
+                const responseData = await response.json();
+                Swal.fire({
+                        title: `Bravo ${responseData.user_login}!`,
+                        text: 'Your operation was completed.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        confirmButton : true
+                    }).then((result)=>{
+                        if (result.isConfirmed){
+                              window.location.replace(`compte.html?id=${compte_id}`);
 
-    const formData = collectFormData();
+                        }});
 
-    if (!formData) {
-        alert("Veuillez remplir tous les champs obligatoires et sélectionner un fichier.");
-        return;
-    }
-
-    try {
-        const response = await submitForm(formData);
-
-        if (response.ok) {
-            const data = await response.json();
-            console.log("Réponse serveur :", data);
-            alert("Inscription réussie !");
-            redirectToProfile(data.id_compte);
-        } else {
-            await handleError(response);
+            } else {
+                const errorText = await response.text();
+                console.error("Erreur lors de l'inscription :", errorText);
+                alert("L'inscription a échoué. Veuillez réessayer.");
+            }
+        } catch (error) {
+            console.error("Erreur réseau ou serveur :", error);
+            alert("Impossible de se connecter au serveur.");
         }
-    } catch (error) {
-        console.error("Erreur réseau ou serveur :", error);
-        alert("Impossible de se connecter au serveur.");
-    }
-}
-
-// Collecte les données du formulaire en validant les champs obligatoires
-function collectFormData() {
-    const prenom = document.getElementById("first-name")?.value;
-    const nom = document.getElementById("last-name")?.value;
-    const adresse = document.getElementById("address")?.value;
-    const fileInput = document.getElementById("file");
-    const file = fileInput?.files[0];
-
-    if (!prenom || !nom || !adresse || !file) {
-        console.error("Tous les champs obligatoires ne sont pas remplis ou le fichier est manquant.");
-        return null;
-    }
-
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("nom", nom);
-    formData.append("prenom", prenom);
-    formData.append("addresse", adresse);
-    formData.append("score", 0); // Valeur par défaut
-    formData.append("niveau", 0); // Valeur par défaut
-    formData.append("avatar", file);
-
-    return formData;
-}
-
-// Envoie le formulaire au serveur via une requête POST
-async function submitForm(formData) {
-    const SERVER_URL = "http://127.0.0.1:8090/compte";
-    return await fetch(SERVER_URL, {
-        method: "POST",
-        body: formData,
     });
-}
-
-// Gère les erreurs de réponse du serveur
-async function handleError(response) {
-    let errorMessage = "Erreur lors de l'inscription. Veuillez réessayer.";
-
-    try {
-        const errorData = await response.json();
-        errorMessage = errorData.detail || errorMessage;
-    } catch (error) {
-        console.error("Impossible d'analyser le message d'erreur du serveur :", error);
-    }
-
-    console.error("Erreur serveur :", response.status, errorMessage);
-    alert(errorMessage);
-}
-
-// Redirige vers la page de profil avec l'identifiant utilisateur
-function redirectToProfile(userId) {
-    const profileUrl = `create_user.html?id=${userId}`;
-    window.location.replace(profileUrl);
-}
