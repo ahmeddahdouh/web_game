@@ -50,18 +50,33 @@ class InventaireRepository:
         return result
 
     @classmethod
-    def edit_inventory_by_compte(self, db, id_compte, id_objet, qty):
+    def edit_inventory_by_compte(self, db, inventory):
         element_bd = db.query(Inventaire).filter(
             and_(
-                Inventaire.id_compte == id_compte,
-                Inventaire.id_objet == id_objet
+                Inventaire.id_compte == inventory.id_compte,
+                Inventaire.id_objet == inventory.id_objet
             )
         ).first()
 
         if element_bd:
-            element_bd.qty = qty
+            element_bd.qty = inventory.qty
             db.commit()
             db.refresh(element_bd)
             return element_bd
         else:
             raise HTTPException(status_code=404, detail="element Not found")
+
+    @classmethod
+    def delete_inventory(cls, db, inventory):
+        element_bd = db.query(Inventaire).filter(
+            and_(
+                Inventaire.id_compte == inventory.id_compte,
+                Inventaire.id_objet == inventory.id_objet
+            )
+        ).first()
+        if element_bd:
+            db.delete(element_bd)
+            db.commit()
+        else:
+            raise HTTPException(status_code=404, detail="element Not found")
+
