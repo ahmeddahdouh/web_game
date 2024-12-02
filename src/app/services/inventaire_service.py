@@ -15,5 +15,9 @@ class InventaireService:
         return InventaireRepository.get_inventory_by_compte(db, id_compte)
 
     @classmethod
-    def edit_inventory_by_compte(self, db, id_compte, id_objet,qty):
-        return InventaireRepository.edit_inventory_by_compte(db, id_compte, id_objet,qty)
+    def edit_inventory_by_compte(self, db, inventory):
+        return InventaireRepository.edit_inventory_by_compte(db, inventory)
+
+    @classmethod
+    def delete_inventory(self, db, inventory):
+        return InventaireRepository.delete_inventory(db, inventory)
