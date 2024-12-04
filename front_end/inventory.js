@@ -4,11 +4,21 @@ const compteId = urlParams.get('id_compte');
 let numberObject = 0;
 let numberInventoryLines = 0
 let objects;
+let clickCount = 0;
+
+function OnChangeFilter(){
+    const sortedDropDown  = document.getElementById("sortedDropDown")
+    sortedDropDown.addEventListener("change",(event)=>{
+        console.log(event.target.value)
+        getInventaire(event.target.value)
+    })
+}
 
 function hideButtonCondition() {
     if (numberObject == numberInventoryLines) {
         document.getElementById("add-element").style.display = 'none';
-    }
+    } else
+        document.getElementById("add-element").style.display = 'block';
 }
 
 function handleHttpErrors(response) {
@@ -42,6 +52,7 @@ async function initApp() {
         console.error("Erreur lors de l'initialisation de l'application :", error);
     }
     OpenCreateModal();
+    OnChangeFilter();
 }
 
 async function fetchObjects() {
@@ -49,9 +60,11 @@ async function fetchObjects() {
     return handleHttpErrors(response);
 }
 
-// Remplir le menu déroulant avec des objets
+
 function populateDropdown(items) {
     const dropdown = document.getElementById("dropdown");
+
+
     dropdown.innerHTML = ""
     const quantityInput = document.getElementById("quantity");
 
@@ -60,6 +73,8 @@ function populateDropdown(items) {
         return;
     }
 
+
+
     items.forEach(item => {
         const option = document.createElement("option");
         option.value = item.id_objet;
@@ -67,19 +82,28 @@ function populateDropdown(items) {
         dropdown.appendChild(option);
     });
 
-    // Gestion de l'événement de soumission
+
     const addObjectForm = document.getElementById("addObjectForm");
     if (addObjectForm) {
-        addObjectForm.removeEventListener("submit", (event) => handleSubmit(event, dropdown, quantityInput));
-        addObjectForm.addEventListener("submit", (event) => handleSubmit(event, dropdown, quantityInput));
+        clickCount = 0
+        addObjectForm.addEventListener("submit", (event) => {
+            event.preventDefault(); // Empêche l'envoi pour débogage (à retirer si nécessaire)
+            clickCount++;
+            if (clickCount < 2) {
+                handleSubmit(event, dropdown, quantityInput);
+            }
+
+        });
     }
+
 }
+
 
 // Gestion de la soumission du formulaire
 async function handleSubmit(event, dropdown, quantityInput) {
-
+   debugger;
     event.preventDefault();
-
+    debugger;
     let data = {
         id_compte: parseInt(compteId),
         id_objet: dropdown.value,
@@ -95,21 +119,23 @@ async function handleSubmit(event, dropdown, quantityInput) {
 
             if (response.ok) {
                 $('#inventoryModalCenter').modal('hide');
+                showAlert("Bravo !", "Element ajouter avec succées", "success")
                 getInventaire();
+
             } else if (response.status === 400) {
                 const errorData = await response.json();
                 const errorMessage = errorData.detail || "Données invalides";
                 showAlert("Oups, erreur !", errorMessage, "error");
             }
         } catch (error) {
-            console.error("Erreur réseau :", error);
+            consol.error("Erreur réseau :", error);
             $('#inventoryModalCenter').modal('hide');
         }
 
 
     } else {
         try {
-            const response = await fetch(`${BASE_URL}/inventaire/${compteId}`, {
+            const response = await fetch(`${BASE_URL}/inventaire/`, {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(data),
@@ -144,7 +170,7 @@ function showAlert(title, text, icon) {
 }
 
 // Récupérer l'inventaire
-async function getInventaire() {
+async function getInventaire(target = undefined) {
 
     try {
         objects = await fetchObjects();
@@ -153,15 +179,27 @@ async function getInventaire() {
         const items = await handleHttpErrors(response);
         numberInventoryLines = items.length
         hideButtonCondition()
-        populateTable(items);
         inventaireObjects = items.map(item => item.id_objet);
+        const sortedDataByObject = [...items].sort((a, b) => a.nom_objet.localeCompare(b.nom_objet));
+        const sortedDataByQty = [...items].sort((a, b) => a.qty - b.qty);
+        debugger;
+        if (parseInt(target) == 1){
+             populateTable(sortedDataByObject);
+        }
+        else if (parseInt(target)){
+            populateTable(sortedDataByQty);
+        }else
+        {
+            populateTable(items)
+        }
+
+
         objectsToPopulate = objects.filter(item => !inventaireObjects.includes(item.id_objet));
         populateDropdown(objectsToPopulate)
-        console.log(objects)
-
     } catch (error) {
         console.error("Erreur lors de la récupération de l'inventaire :", error);
     }
+    hideButtonCondition()
 }
 
 function populateTable(items) {
@@ -173,9 +211,15 @@ function populateTable(items) {
     }
 
     tableBody.innerHTML = "";
-    const hrElements = document.querySelectorAll('th')
 
-    hrElements.forEach(hr => {
+    const sortDropdown = document.getElementById("sortedDropDown")
+    const hrElements = document.querySelectorAll('th')
+    sortDropdown.innerHTML=""
+    hrElements.forEach((hr,index) => {
+        option = document.createElement('option')
+        option.value = index + 1
+        option.text = hr.textContent.trim();
+        sortDropdown.appendChild(option)
         hr.style.textAlign = "center"
     })
     items.forEach(item => {
@@ -226,7 +270,6 @@ function createActionsCell(item) {
         }));
 
 
-
     actionsCell.append(editLink, deleteLink);
     return actionsCell;
 }
@@ -243,6 +286,7 @@ function createActionLink(text, onClick) {
 
 // Ouvrir le modal d'édition
 function openModal(item = undefined, action) {
+    debugger;
     $('#inventoryModalCenter').modal('show');
     const modal = $("#inventoryModalCenter");
     if (action = "edit" && item) {
@@ -254,6 +298,7 @@ function openModal(item = undefined, action) {
         modal.find("#dropdown").prop("disabled", true);
 
     } else {
+
         modal.find('.modal-title').text(`Ajouter un element`);
         modal.find("#dropdown").val("")
         modal.find("#quantity").val("");
