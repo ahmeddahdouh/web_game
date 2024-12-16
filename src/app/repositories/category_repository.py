@@ -5,8 +5,7 @@ class CategoryRepository:
     def __init__(self):
         pass
 
-    @classmethod
-    def create_category(self, db, category):
+    def create_category(db, category):
         category_db = Category(
             nom_category=category.nom_category,
             description_category=category.description_category,
@@ -16,6 +15,5 @@ class CategoryRepository:
         db.refresh(category_db)
         return category_db
 
-    @classmethod
-    def get_all_categories(self, db):
+    def get_all_categories(db):
         return db.query(Category).all()
