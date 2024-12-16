@@ -4,9 +4,9 @@ from typing import Optional
 
 
 class User(SQLModel, table=True):
-    id_user: int | None = Field(default=None, primary_key=True)
+    id_user:  Optional[int] = Field(default=None, primary_key=True)
     user_login: str = Field(..., max_length=50, sa_column_kwargs={"nullable": False})
-    hashed_password: str | None = Field(
+    hashed_password: Optional[str] = Field(
         default=None, sa_column_kwargs={"nullable": False}
     )
     user_created_at: datetime = Field(default_factory=datetime.utcnow)
