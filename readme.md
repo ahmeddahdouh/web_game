@@ -40,7 +40,13 @@ SECRET_KEY=
 ```
 Renseignez les valeurs appropriées pour chaque variable.
 
-### 5. Lancer l'application FastAPI
+### 5. Appliquer les migrations de base de données
+Exécutez la commande suivante pour appliquer les migrations avec Alembic :
+```bash
+alembic upgrade head
+```
+
+### 6. Lancer l'application FastAPI
 Exécutez la commande suivante pour démarrer l'application avec Uvicorn sur le port 8090 :
 ```bash
 uvicorn app.main:app --reload --port 8090
