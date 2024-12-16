@@ -1,4 +1,5 @@
-document.getElementById("login-form").addEventListener("submit", handleLoginSubmit);
+document.getElementById("login-form").
+addEventListener("submit", handleLoginSubmit);
 
 // Fonction pour gérer la soumission du formulaire de connexion
 async function handleLoginSubmit(event) {

@@ -9,7 +9,7 @@ class InventaireRepository:
         pass
 
     @classmethod
-    def create_inventory(self, db, inventory):
+    def create_inventory(cls, db, inventory):
         db_inventory = Inventaire(
             id_compte=inventory.id_compte,
             id_objet=inventory.id_objet,
@@ -23,17 +23,23 @@ class InventaireRepository:
         except Exception as e:
             db.rollback()
             if "UNIQUE constraint failed" in str(e.orig):
-                raise HTTPException(status_code=409, detail="Violation de contrainte d'unicité.")
+                raise HTTPException(
+                    status_code=409, detail="Violation de contrainte d'unicité."
+                )
             elif "FOREIGN KEY constraint failed" in str(e.orig):
-                raise HTTPException(status_code=400, detail="Violation de clé étrangère.")
+                raise HTTPException(
+                    status_code=400, detail="Violation de clé étrangère."
+                )
             else:
                 raise HTTPException(status_code=400, detail="Erreur d'intégrité.")
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"Erreur inconnue: {str(e)}")
 
     @classmethod
-    def get_inventory_by_compte(self, db, id_compte):
-        inventaires = db.query(Inventaire).filter(Inventaire.id_compte == id_compte).all()
+    def get_inventory_by_compte(cls, db, id_compte):
+        inventaires = (
+            db.query(Inventaire).filter(Inventaire.id_compte == id_compte).all()
+        )
         result = []
 
         for inventaire in inventaires:
@@ -51,12 +57,16 @@ class InventaireRepository:
 
     @classmethod
     def edit_inventory_by_compte(self, db, inventory):
-        element_bd = db.query(Inventaire).filter(
-            and_(
-                Inventaire.id_compte == inventory.id_compte,
-                Inventaire.id_objet == inventory.id_objet
+        element_bd = (
+            db.query(Inventaire)
+            .filter(
+                and_(
+                    Inventaire.id_compte == inventory.id_compte,
+                    Inventaire.id_objet == inventory.id_objet,
+                )
             )
-        ).first()
+            .first()
+        )
 
         if element_bd:
             element_bd.qty = inventory.qty
@@ -68,15 +78,18 @@ class InventaireRepository:
 
     @classmethod
     def delete_inventory(cls, db, inventory):
-        element_bd = db.query(Inventaire).filter(
-            and_(
-                Inventaire.id_compte == inventory.id_compte,
-                Inventaire.id_objet == inventory.id_objet
+        element_bd = (
+            db.query(Inventaire)
+            .filter(
+                and_(
+                    Inventaire.id_compte == inventory.id_compte,
+                    Inventaire.id_objet == inventory.id_objet,
+                )
             )
-        ).first()
+            .first()
+        )
         if element_bd:
             db.delete(element_bd)
             db.commit()
         else:
             raise HTTPException(status_code=404, detail="element Not found")
-
