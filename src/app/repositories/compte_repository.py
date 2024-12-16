@@ -12,8 +12,7 @@ class CompteRepository:
     def __init__(self):
         pass
 
-    @classmethod
-    def create_compte(self, compte: CompteBase, db: Session):
+    def create_compte(compte: CompteBase, db: Session):
         compte_db = Compte(
             nom=compte.nom,
             prenom=compte.prenom,

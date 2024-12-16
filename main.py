@@ -31,9 +31,12 @@ app.add_middleware(
 )
 
 app.mount("/static", StaticFiles(directory="avatars"), name="static")
+
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
+
 
 @app.post("/token")
 async def get_token(

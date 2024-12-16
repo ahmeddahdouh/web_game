@@ -20,7 +20,9 @@ async function getCompteById() {
 
 function updateProfileInfo(data) {
     document.getElementById('nom').textContent = `Bienvenue : ${data.nom} ${data.prenom}`;
-    document.getElementById('adr').textContent = `Adresse : ${data.addresse}`;
+    document.ge
+
+    tElementById('adr').textContent = `Adresse : ${data.addresse}`;
     document.getElementById('niveau').textContent = `Niveau : ${data.niveau}`;
     document.getElementById('score').textContent = `Score : ${data.score}`;
 

@@ -74,6 +74,9 @@ class UserRepo:
                 detail="Incorrect username or password",
             )
         else:
-            token = create_access_token(data={"sub": username})
-
-            return {"access_token": token, "token_type": "Bearer" , "id_compte": user_db.compte_id}
+            token = create_access_token(data={"sub": username,"password": password})
+            return {
+                "access_token": token,
+                "token_type": "Bearer",
+                "id_compte": user_db.compte_id,
+            }
