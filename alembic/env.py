@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from src.app.models import *
+from src.app.models import race_model
 from alembic import context
 from sqlmodel import SQLModel
 

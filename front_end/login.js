@@ -8,7 +8,7 @@ async function handleLoginSubmit(event) {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    console.log("Form submitted"); // Débogage
+    console.log("Form submitted");
 
     if (!username || !password) {
         alert("Veuillez remplir tous les champs.");

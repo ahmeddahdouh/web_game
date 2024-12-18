@@ -21,5 +21,5 @@ class Inventaire(SQLModel, table=True):  # Représente la table 'inventaire'
 
     # Contrainte d'unicité sur la paire (id_compte, id_objet)
     __table_args__ = (
-        UniqueConstraint("id_compte", "id_objet", name="uix_id_compte_objet"),
+        UniqueConstraint("id_compte", "id_objet", name="uix_id_compte_objettt"),
     )

@@ -3,3 +3,5 @@ from . import user_model
 from . import category_model
 from . import objet_model
 from . import inventaire_model
+from . import race_model
+from . import equipement_model
