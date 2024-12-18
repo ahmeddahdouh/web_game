@@ -1,2 +1,5 @@
 .idea
 .venv
+avatars
+.env
+**/__pycache__
